@@ -1,6 +1,24 @@
+import { NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgIf],
+  template: `
+  <div class="button__text" i18n="@@test">
+            Value
+
+            @if (amount && amount > 0) {
+              <span class="button__currency"> 123 {{ amount }}</span>
+            }
+          </div>
+  `,
+})
+export class App {
+  public amount: number|undefined = 123;
+}
+
+bootstrapApplication(App).catch((err) => console.error(err));
